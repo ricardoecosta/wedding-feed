@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sandra e André</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="app.css">
+    <style>
+        img {
+            width: 100%;
+        }
+
+        .hiddenFileInput {
+            display: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<!-- HOME -->
+<div class="app-page" data-page="home">
+    <div class="app-topbar">
+        <div class="app-title">Casamento da Sandra e do André</div>
+    </div>
+    <div class="app-content">
+        <div class="app-section">
+            <img src="img/home.jpg"/>
+        </div>
+        <div class="app-section app-list">
+            <div class="app-button blue" data-target="snap">Enviar Mensagem aos Noivos</div>
+        </div>
+    </div>
+</div>
+
+<!-- SEND SNAP -->
+<div class="app-page" data-page="snap">
+    <div class="app-topbar">
+        <div class="app-button left" data-back></div>
+        <div class="app-title">Partilhar Mensagem</div>
+    </div>
+    <div class="app-content">
+        <div class="app-section app-list">
+            <form id="sendForm" enctype="multipart/form-data">
+                <input id="photo" type="file" accept="image/*" capture class="hiddenFileInput"/>
+                <input id="sender" class="app-input" placeholder="Insira o seu primeiro e último nome">
+                <textarea id="message" class="app-input" placeholder="Escreva a sua mensagem" maxlength="500"></textarea>
+            </form>
+            <div id="takeSnapButton" class="app-button blue">Adicionar Foto</div>
+            <div id="sendMessageButton" class="app-button green">Enviar</div>
+        </div>
+        <div id="snapPreviewSection" class="app-section" style="display: none">
+            <img id="snapPreview"/>
+        </div>
+    </div>
+</div>
+
+<script src="zepto.js"></script>
+<script src="app.min.js"></script>
+<script>
+    App.controller('home', function (page) {
+        // todo
+    });
+
+    //
+    // SEND SNAP
+    //
+    App.controller('snap', ShareSnapController);
+
+    function ShareSnapController(page) {
+        // todo: validate form
+    }
+
+    ShareSnapController.prototype.onReady = function (page) {
+        var photo = $("#photo");
+
+        $("#takeSnapButton").on("click", function () {
+            photo.trigger("click");
+        });
+
+        photo.on("change", function () {
+            var self = this;
+            if (self.files.length === 1) {
+                var firstFile = self.files[0];
+
+                if (firstFile.type.indexOf("image/") === 0) {
+                    $("#snapPreview").attr("src", URL.createObjectURL(firstFile));
+                    $("#snapPreviewSection").show();
+                }
+            }
+        });
+
+        $("#sendMessageButton").on("click", function () {
+            var formData = new FormData();
+            var files = $("#photo")[0].files;
+            if (files && files.length > 0) {
+                var file = files[0];
+                formData.append("snapInput", file, file.name);
+            }
+
+            formData.append("messageSender", $("#sender").val());
+            formData.append("messageBody", $("#message").val());
+
+            $.ajax({
+                url: '/messages',
+                type: 'POST',
+                crossDomain: true,
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function () {
+                    dialog("Fotografia Enviada", "A sua fotografia será eventualmente apresentada nas televisões do salão");
+                },
+                error: function (xhr) {
+                    dialog("Erro", "Tente outra vez por favor (" + xhr.status + ")");
+                }
+            });
+        });
+    }
+
+    //
+    // UTILS
+    //
+    function dialog(title, text) {
+        App.dialog({
+            title: title,
+            text: text,
+            okButton: 'Fechar'
+        });
+    }
+
+    App.load('home');
+</script>
+</body>
+
+</html>

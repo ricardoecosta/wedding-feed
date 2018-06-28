@@ -1,0 +1,46 @@
+{
+	"ImportPath": "github.com/ricardoecosta/weddingfeed",
+	"GoVersion": "go1.10",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/disintegration/imaging",
+			"Comment": "v1.4.2-3-g5e63c9a",
+			"Rev": "5e63c9a565d0a3260d23d060a795783dab90fefe"
+		},
+		{
+			"ImportPath": "github.com/edwvee/exiffix",
+			"Rev": "b57537c92a6b4155c5219ce0d7d2a9c0cc74b1c4"
+		},
+		{
+			"ImportPath": "github.com/google/uuid",
+			"Comment": "0.2-21-gdec09d7",
+			"Rev": "dec09d789f3dba190787f8b4454c7d3c936fed9e"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.6.2-3-gcb46983",
+			"Rev": "cb4698366aa625048f3b815af6a0dea8aef9280a"
+		},
+		{
+			"ImportPath": "github.com/rwcarlsen/goexif/exif",
+			"Rev": "8d986c03457a2057c7b0fb0a48113f7dd48f9619"
+		},
+		{
+			"ImportPath": "github.com/rwcarlsen/goexif/tiff",
+			"Rev": "8d986c03457a2057c7b0fb0a48113f7dd48f9619"
+		},
+		{
+			"ImportPath": "golang.org/x/image/bmp",
+			"Rev": "af66defab954cb421ca110193eed9477c8541e2a"
+		},
+		{
+			"ImportPath": "golang.org/x/image/tiff",
+			"Rev": "af66defab954cb421ca110193eed9477c8541e2a"
+		},
+		{
+			"ImportPath": "golang.org/x/image/tiff/lzw",
+			"Rev": "af66defab954cb421ca110193eed9477c8541e2a"
+		}
+	]
+}
