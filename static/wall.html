@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sandra e André</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="cssgram.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-image: url(data:image/png;base64,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), linear-gradient(to left, #d289be, #cd79b2, #693055, #371a27);
+        }
+
+        #fullscreen:-webkit-full-screen {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-image: url(data:image/png;base64,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), linear-gradient(to left, #d289be, #cd79b2, #693055, #371a27);
+        }
+
+        #fullscreen:-webkit-full-screen > button {
+            display: none;
+        }
+
+        #fs-main {
+            padding: 2%;
+        }
+
+        #controls {
+            position: absolute;
+            right: 20px;
+        }
+
+        #top-bar {
+            width: 100%;
+            color: beige;
+            font-size: 36px;
+            text-shadow: 2px 2px 5px darkslategrey;
+            margin-bottom: 200px;
+        }
+
+        #quote {
+            font-size: 32px;
+            text-align: right;
+        }
+
+        #cite {
+            font-size: 22px;
+            text-align: right;
+        }
+
+        #logo {
+            width: 10%;
+            float: left;
+        }
+
+        #title {
+            width: 90%;
+            float: left;
+        }
+
+        #imageContainer {
+            position: absolute;
+            opacity: 0;
+            box-shadow: 1vmin 1vmin 5vmin rgba(0, 0, 0, .4), 0 0 5vmin rgba(0, 0, 0, .2);
+        }
+
+        #message {
+            position: absolute;
+            opacity: 0;
+        }
+
+        #sender {
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 5px darkslategrey;
+        }
+
+        #messageBody {
+            font-size: 32px;
+            margin-top: 15px;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            -moz-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            box-shadow: 1vmin 1vmin 5vmin rgba(0, 0, 0, .4), 0 0 5vmin rgba(0, 0, 0, .2);
+        }
+
+        #bottom-bar {
+            left: 5%;
+            width: 90%;
+            position: absolute;
+            bottom: 10px;
+            color: beige;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        blockquote {
+            color: black;
+            background-color: white;
+            background-image: url(data:image/png;base64,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);
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            quotes: "\201C" "\201D" "\2018" "\2019";
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <div id="controls">
+        <button id="fs-btn" type="button">FS</button>
+    </div>
+    <div id="fullscreen">
+        <div id="fs-main">
+            <div id="top-bar">
+                <div id="logo">
+                    <img src="img/logo.png" alt="">
+                </div>
+                <div id="title">
+                    <div id="quote">
+                        <em>“O amor é apenas uma palavra, até que alguém chega e lhe dá sentido”</em>
+                    </div>
+                    <div id="cite">
+                        <div>- Paulo Coelho</div>
+                    </div>
+                </div>
+            </div>
+            <div id="imageContainer">
+                <img id="image" width="100%" src="">
+            </div>
+            <div>
+                <div id="message">
+                    <div>
+                        <div id="sender"></div>
+                    </div>
+                    <div>
+                        <blockquote id="messageBody" class="blockquote"></blockquote>
+                    </div>
+                </div>
+            </div>
+            <div id="bottom-bar">
+                Para participar, abra o navegador de internet to seu telemóvel e insira o endereço: <u>casamento.live</u>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="zepto.js"></script>
+<script src="callbacks.js"></script>
+<script src="deferred.js"></script>
+<script src="anime.min.js"></script>
+<script src="utils.js"></script>
+<script src="wall-utils.js"></script>
+<script src="api.js"></script>
+<script src="animations.js"></script>
+<script>
+    Zepto(function ($) {
+        const api = new Api($);
+        const animations = new Animations();
+        const utils = new Utils();
+        const wallUtils = new WallUtils(window);
+
+        wallUtils.setupFullscreen(
+                document.getElementById("fs-btn"),
+                document.getElementById("fullscreen"));
+
+        utils.preloadImages(wallUtils.stockPhotosUrls);
+
+        var messages = [];
+        var messageIndex = 0;
+
+        function presentMessages() {
+            if (messageIndex + 1 >= messages.length) {
+                messageIndex = -1;
+                api.unarchivedMessages()
+                        .then(function (msgs) {
+                            if (msgs) {
+                                if (msgs.length === 0) {
+                                    messages = [];
+                                    messageIndex = 0;
+                                    setTimeout(presentMessages, 5000);
+                                } else {
+                                    messages = msgs;
+                                    const messageImages = messages
+                                            .filter(function (message) {
+                                                return message.image_attached === true;
+                                            })
+                                            .map(function (message) {
+                                                return message.image_url;
+                                            });
+                                    utils.preloadImages(messageImages);
+                                    moveToMessage();
+                                }
+                            }
+                            console.info(`messages fetched, total=${messages.length}`);
+                        }, function (status) {
+                            console.error(`failed to fetch messages, status=${status}`);
+                        });
+            } else {
+                moveToMessage();
+            }
+        }
+
+        function moveToMessage() {
+            const message = messages[++messageIndex];
+            if (message) {
+                playMessageAnimation(message);
+            }
+        }
+
+        function playMessageAnimation(message) {
+            const imageContainer = $("#imageContainer");
+            const messageContainer = $("#message");
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const yOffset = 40;
+            const xOffset = 10;
+
+            if (message) {
+                $("#sender").text("💬 Mensagem de “" + message.sender + "”");
+                $("#messageBody").text(message.message);
+                // $("#image").attr("class", wallUtils.pickRandomPhotoFilter());
+                const image = $("#image");
+                var imageSrc;
+                var imageWidth;
+                var imageHeight;
+
+                if (message.image_attached === true && message.image_url) {
+                    imageSrc = message.image_url;
+                    imageWidth = message.image_width;
+                    imageHeight = message.image_height;
+                } else {
+                    const stockPhoto = wallUtils.pickRandomStockPhoto();
+                    imageSrc = stockPhoto.image_url;
+                    imageWidth = stockPhoto.image_width;
+                    imageHeight = stockPhoto.image_height;
+                }
+
+                image.attr("src", imageSrc);
+
+                var width;
+                var height;
+                var ratio;
+                if (imageWidth >= imageHeight) {
+                    width = windowWidth * 0.95 / 2;
+                    ratio = width / imageWidth;
+                    height = imageHeight * ratio;
+
+                    imageContainer.css("top", (windowHeight / 2 - height / 2) + yOffset + "px");
+                    imageContainer.css("left", windowWidth / 2 - width / 2 + "px");
+                    imageContainer.css("width", width + "px");
+                    imageContainer.css("height", height + "px");
+                    messageContainer.css("left", windowWidth / 2 + xOffset + "px");
+                } else {
+                    height = windowHeight * 0.7;
+                    ratio = height / imageHeight;
+                    width = imageWidth * ratio;
+
+                    imageContainer.css("top", (windowHeight / 2 - height / 2) + yOffset + "px");
+                    imageContainer.css("left", windowWidth / 2 - width / 2 + "px");
+                    imageContainer.css("width", width + "px");
+                    imageContainer.css("height", height + "px");
+                    messageContainer.css("left", windowWidth / 2 + "px");
+                }
+
+                imageContainer.show();
+                imageContainer.css("opacity", 0);
+                imageContainer.css("transform", "scale(0)");
+
+                // message container
+                messageContainer.hide();
+                messageContainer.css("transform", "scale(0)");
+                messageContainer.css("opacity", 0);
+                messageContainer.css("top", (windowHeight / 2 - height / 2) + yOffset + "px");
+                messageContainer.css("width", "48%");
+
+                anime.timeline()
+                        .add({
+                            targets: '#imageContainer',
+                            opacity: 1,
+                            scale: 1,
+                            easing: 'easeInOutQuad',
+                            duration: 500
+                        })
+                        .finished
+                        .then(function () {
+                            setTimeout(function () {
+                                anime.timeline()
+                                        .add({
+                                            targets: '#imageContainer',
+                                            left: windowWidth / 4 - width / 2 + "px",
+                                            easing: 'easeInOutQuad',
+                                            duration: 500
+                                        })
+                                        .finished
+                                        .then(function () {
+                                            messageContainer.show();
+                                            messageContainer.css("transform", "scale(1)");
+                                            messageContainer.css("opacity", 0);
+
+                                            anime.timeline()
+                                                    .add({
+                                                        targets: '#message',
+                                                        opacity: 1,
+                                                        easing: 'easeInOutQuad',
+                                                        duration: 500
+                                                    })
+                                                    .finished
+                                                    .then(function () {
+                                                        setTimeout(function () {
+                                                            anime.timeline()
+                                                                    .add({
+                                                                        targets: ['#imageContainer', '#message'],
+                                                                        opacity: 0,
+                                                                        easing: 'easeInOutQuad',
+                                                                        duration: 500
+                                                                    })
+                                                                    .finished
+                                                                    .then(function () {
+                                                                        messageContainer.hide();
+                                                                        imageContainer.hide();
+                                                                        presentMessages();
+                                                                    });
+                                                        }, animations.messageDurationMs);
+                                                    });
+                                        });
+                            }, animations.imageDurationMs);
+                        });
+            }
+        }
+
+        presentMessages();
+    });
+</script>
+</body>
+
+</html>

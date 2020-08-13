@@ -1,0 +1,15 @@
+image: golang:1.10
+
+pipelines:
+  default:
+    - step:
+        script:
+          - PACKAGE_PATH="${GOPATH}/src/github.com/ricardoecosta/weddingfeed"
+          - mkdir -pv "${PACKAGE_PATH}"
+          - tar -cO --exclude-vcs --exclude=bitbucket-pipelines.yml . | tar -xv -C "${PACKAGE_PATH}"
+          - cd "${PACKAGE_PATH}"
+          - go get github.com/tools/godep
+          - godep restore
+          - go test -v
+          - ./build.sh
+          - curl -T build*.tar -u ricardoecosta:2aec717dcef4280abea0b310b72fb28333dfbb12 https://api.bintray.com/content/ricardoecosta/wf/

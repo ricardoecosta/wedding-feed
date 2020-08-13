@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+<!-- ADMIN -->
+<div class="app-page" data-page="admin">
+    <div class="app-topbar dark-blue">
+        <div class="app-title">Painel de Moderação</div>
+    </div>
+    <div class="app-content">
+        <ul id="messageList" class="app-list">
+        </ul>
+    </div>
+</div>
+<script src="zepto.js"></script>
+<script src="callbacks.js"></script>
+<script src="deferred.js"></script>
+<script src="app.min.js"></script>
+<script src="api.js"></script>
+<script src="utils.js"></script>
+<script>
+    function appendMessageToList(list, message, buttonHtml) {
+        list.append(
+                `<li style="height: 148px" class="app-section">
+                                    <div>
+                                        <div style="float: left; width: 50%"><img width="128" class="messageImage" data-message-content="${message.message}" src="${message.thumb_url || "/static/img/no-image.png"}"></div>
+                                        <div style="float: right; width: 50%">
+                                            <div style="word-wrap: break-word">${message.sender}</div>
+                                            <div style="font-size: 10px">${new Date(message.createdAt * 1000).toISOString()}</div>
+                                            ${buttonHtml}
+                                        </div>
+                                    </div>
+                                </li>`);
+    }
+
+    function fetchAllMessages(api, utils) {
+        api.fetchMessages()
+                .then(function (messages) {
+                    if (messages && messages.length > 0) {
+                        const messageList = $("#messageList");
+                        messageList.empty();
+
+                        const archivedMessages = messages.filter(m => m.archived === true);
+                        const unarchivedMessages = messages.filter(m => m.archived === false);
+
+                        messageList.append("<label>MENSAGENS VISÍVEIS</label>");
+                        unarchivedMessages.forEach(function (message) {
+                            const buttonHtml = `<div class="archiveMessage app-button red" data-message-id="${message.id}">Esconder</div>`;
+                            appendMessageToList(messageList, message, buttonHtml);
+                        });
+
+                        messageList.append("<label>MENSAGENS ESCONDIDAS</label>");
+
+                        archivedMessages.forEach(function (message) {
+                            const buttonHtml = `<div class="unarchiveMessage app-button green" data-message-id="${message.id}">Mostrar</div>`;
+                            appendMessageToList(messageList, message, buttonHtml);
+                        });
+
+                        $(".archiveMessage").on("click", function (event) {
+                            const messageId = event.target.getAttribute("data-message-id");
+                            event.target.setAttribute("class", "app-button dark-blue");
+                            event.target.innerText = "Um momento...";
+
+                            api.archiveMessage(messageId)
+                                    .then(function () {
+                                        fetchAllMessages(api, utils);
+                                    })
+                                    .fail(function () {
+                                        utils.openDialog("", "Falha ao esconder a mensagem");
+                                    });
+                        });
+
+                        $(".unarchiveMessage").on("click", function (event) {
+                            const messageId = event.target.getAttribute("data-message-id");
+                            event.target.setAttribute("class", "app-button dark-blue");
+                            event.target.innerText = "Um momento...";
+
+                            api.unarchiveMessage(messageId)
+                                    .then(function () {
+                                        fetchAllMessages(api, utils);
+                                    })
+                                    .fail(function () {
+                                        utils.openDialog("", "Falha ao tornar a mensagem visivel");
+                                    });
+                        });
+
+                        $(".messageImage").on("click", function (event) {
+                            const messageContent = event.target.getAttribute("data-message-content");
+                            utils.openDialog("", messageContent);
+                        });
+                    }
+                })
+                .fail(function (status) {
+                    utils.openDialog("", `Erro ao obter a lista de mensagens, status=${status}`)
+                });
+    }
+
+    App.controller('admin', function () {
+        const utils = new Utils();
+        const api = new Api($);
+
+        fetchAllMessages(api, utils);
+    });
+
+    App.load("admin");
+</script>
+</body>
+
+</html>

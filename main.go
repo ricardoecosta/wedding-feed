@@ -1,16 +1,14 @@
 package main
 
 import (
-	"net/http"
-	"fmt"
-	"log"
-	"github.com/ricardoecosta/weddingfeed/router"
-	"github.com/ricardoecosta/weddingfeed/config"
+	"github.com/Sirupsen/logrus"
 )
 
 func main() {
-	config := config.Load("config.json")
-	router := router.Initialize()
-
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), router))
+	server, err := NewServer("config.json")
+	if err != nil {
+		logrus.Fatalf("%+v", err)
+	}
+	server.Start()
+	// todo: graceful shutdown
 }

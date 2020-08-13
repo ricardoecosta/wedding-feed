@@ -6,31 +6,90 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-    <link rel="stylesheet" href="app.css">
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico'/>
+    <link rel="stylesheet" href="app.min.css">
     <style>
         img {
             width: 100%;
+            image-orientation: from-image;
         }
 
         .hiddenFileInput {
             display: none;
             cursor: pointer;
         }
+
+        .spinner {
+            text-align: center;
+            line-height: 140px;
+            vertical-align: middle;
+            color: dimgrey;
+            top: 0;
+            bottom: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98) url(img/spinner.gif) center center no-repeat;
+            z-index: 10000;
+        }
+
+        info-section {
+            margin-bottom: 10px;
+        }
+
+        blockquote {
+            font-family: Georgia, serif;
+            font-size: 13.5px;
+            font-style: italic;
+            margin: 0.25em 0;
+            padding: 0.25em 25px;
+            line-height: 1.45;
+            position: relative;
+            color: #383838;
+        }
+
+        blockquote:before {
+            display: block;
+            content: "\201C";
+            font-size: 80px;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+            color: #7a7a7a;
+        }
+
+        blockquote cite {
+            color: #999999;
+            font-size: 11px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        blockquote cite:before {
+            content: "\2014 \2009";
+        }
     </style>
 </head>
 
 <body>
+<div id="spinner" class="spinner" style="display: none">
+    <h2>Aguarde por favor...</h2>
+</div>
 <!-- HOME -->
 <div class="app-page" data-page="home">
     <div class="app-topbar">
-        <div class="app-title">Casamento da Sandra e do André</div>
+        <div class="app-title">Sandra e André</div>
     </div>
     <div class="app-content">
         <div class="app-section">
-            <img src="img/home.jpg"/>
+            <img src="img/banner.png"/>
+            <blockquote>O amor é apenas uma palavra, até que alguém chega e lhe dá sentido.
+                <cite>Paulo Coelho</cite>
+            </blockquote>
         </div>
         <div class="app-section app-list">
             <div class="app-button blue" data-target="snap">Enviar Mensagem aos Noivos</div>
+            <div class="app-button dark-blue" data-target="info">Informações</div>
         </div>
     </div>
 </div>
@@ -38,18 +97,27 @@
 <!-- SEND SNAP -->
 <div class="app-page" data-page="snap">
     <div class="app-topbar">
-        <div class="app-button left" data-back></div>
-        <div class="app-title">Partilhar Mensagem</div>
+        <div class="app-button left" data-back>Voltar</div>
+        <div class="app-title">Detalhes da Mensagem</div>
     </div>
     <div class="app-content">
         <div class="app-section app-list">
             <form id="sendForm" enctype="multipart/form-data">
-                <input id="photo" type="file" accept="image/*" capture class="hiddenFileInput"/>
-                <input id="sender" class="app-input" placeholder="Insira o seu primeiro e último nome">
-                <textarea id="message" class="app-input" placeholder="Escreva a sua mensagem" maxlength="500"></textarea>
+                <input id="image" type="file" accept="image/*" class="hiddenFileInput"/>
+                <div>
+                    <b style="margin-left: 5px">Nome</b>
+                    <input id="sender" class="app-input" maxlength="50" placeholder="Escreva aqui o seu nome">
+                </div>
+                <div>
+                    <b style="margin-left: 5px">Mensagem</b>
+                    <textarea id="message"
+                              class="app-input"
+                              placeholder="Escreva aqui a sua mensagem"
+                              maxlength="200"></textarea>
+                </div>
             </form>
-            <div id="takeSnapButton" class="app-button blue">Adicionar Foto</div>
-            <div id="sendMessageButton" class="app-button green">Enviar</div>
+            <div id="takeSnapButton" class="app-button dark-blue">Incluir Fotografia</div>
+            <div id="sendMessageButton" class="app-button blue">Enviar Agora</div>
         </div>
         <div id="snapPreviewSection" class="app-section" style="display: none">
             <img id="snapPreview"/>
@@ -57,82 +125,149 @@
     </div>
 </div>
 
+<!-- INFO -->
+<div class="app-page" data-page="info">
+    <div class="app-topbar">
+        <div class="app-button left" data-back>Voltar</div>
+        <div class="app-title">Informações</div>
+    </div>
+    <div class="app-content">
+        <div class="app-section">
+            <h4>Contactos dos Noivos</h4>
+            <p> Sandra <a href="tel:+351919810607">919810607</a></p>
+            <p> André <a href="tel:+351917052005">917052005</a></p>
+        </div>
+        <div class="app-section">
+            <h4>Localizaçāo da Quinta</h4>
+            <p>Quinta D. Nuno, Boleiros, Fátima</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3075.324122527786!2d-8.645224484723684!3d39.57484491433201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd18835eb630740b%3A0x7a59a30361463519!2sD.+Nuno!5e0!3m2!1sen!2suk!4v1536515095898"
+                    width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+        <div class="app-section">
+            <h4>Sobre este serviço</h4>
+            <p>Se estiver interessado neste serviço para o seu futuro casamento, por favor contacte-nos através do
+                seguinte e-mail:
+                <a href="mailto:info@timelesscoding.com">info@timelesscoding.com</a></p>
+        </div>
+    </div>
+</div>
+
 <script src="zepto.js"></script>
 <script src="app.min.js"></script>
+<script src="utils.js"></script>
 <script>
-    App.controller('home', function (page) {
-        // todo
-    });
+    Zepto(function ($) {
+        const utils = new Utils();
+        utils.preloadImages(["img/spinner.gif"]);
 
-    //
-    // SEND SNAP
-    //
-    App.controller('snap', ShareSnapController);
-
-    function ShareSnapController(page) {
-        // todo: validate form
-    }
-
-    ShareSnapController.prototype.onReady = function (page) {
-        var photo = $("#photo");
-
-        $("#takeSnapButton").on("click", function () {
-            photo.trigger("click");
+        //
+        // HOME
+        //
+        App.controller('home', function (page) {
         });
 
-        photo.on("change", function () {
-            var self = this;
-            if (self.files.length === 1) {
-                var firstFile = self.files[0];
+        //
+        // INFO
+        //
+        App.controller('info', function (page) {
+        });
 
-                if (firstFile.type.indexOf("image/") === 0) {
-                    $("#snapPreview").attr("src", URL.createObjectURL(firstFile));
-                    $("#snapPreviewSection").show();
+        //
+        // SEND SNAP
+        //
+        App.controller('snap', ShareSnapController);
+
+        function ShareSnapController(page) {
+        }
+
+        ShareSnapController.prototype.onReady = function (page) {
+            var image = $("#image");
+
+            $("#takeSnapButton").on("click", function () {
+                image.trigger("click");
+            });
+
+            image.on("change", function () {
+                var self = this;
+                if (self.files.length === 1) {
+                    var firstFile = self.files[0];
+                    if (firstFile.type.indexOf("image/") === 0) {
+                        $("#snapPreview").attr("src", URL.createObjectURL(firstFile));
+                        $("#snapPreviewSection").show();
+                    }
                 }
-            }
-        });
+            });
 
-        $("#sendMessageButton").on("click", function () {
+            $("#sendMessageButton").on("click", function () {
+                if (!$("#sender").val().trim()) {
+                    utils.openDialog("Nome em falta", "Esqueceu-se de escrever o seu nome");
+                    $("#sender").empty();
+                    return;
+                }
+
+                if (!$("#message").val().trim()) {
+                    utils.openDialog("Mensagem em falta", "Esqueceu-se de escrever a sua mensagem");
+                    $("#message").empty();
+                    return;
+                }
+
+                if (!$("#snapPreview").attr("src")) {
+                    utils.openYesNoDialog("Fotografia em falta", "Deseja mesmo enviar a sua mensagem sem fotografia?", postMessage);
+                    return;
+                } else {
+                    postMessage();
+                }
+            });
+        };
+
+        App.load("home");
+
+        function clearForm() {
+            $("#spinner").hide();
+            $("#snapPreviewSection").hide();
+            $("#snapPreview").attr("src", "");
+            $("#sender").val("");
+            $("#message").val("");
+            $("#file").val("");
+        };
+
+        function postMessage() {
+            var sender = $("#sender").val().trim();
+            var message = $("#message").val().trim();
+
             var formData = new FormData();
-            var files = $("#photo")[0].files;
+            var files = $("#image")[0].files;
             if (files && files.length > 0) {
                 var file = files[0];
-                formData.append("snapInput", file, file.name);
+                formData.append("image", file, file.name);
             }
 
-            formData.append("messageSender", $("#sender").val());
-            formData.append("messageBody", $("#message").val());
+            formData.append("sender", sender);
+            formData.append("message", message);
+
+            $("#spinner").show();
 
             $.ajax({
-                url: '/messages',
+                url: '/api/messages',
                 type: 'POST',
                 crossDomain: true,
                 cache: false,
                 contentType: false,
                 processData: false,
                 data: formData,
+                timeout: 60000,
                 success: function () {
-                    dialog("Fotografia Enviada", "A sua fotografia será eventualmente apresentada nas televisões do salão");
+                    clearForm();
+                    App.load("home");
+                    utils.openDialog("Obrigado por participar", "A sua mensagem foi enviada com sucesso e será eventualmente apresentada nos ecrãs do salão");
                 },
-                error: function (xhr) {
-                    dialog("Erro", "Tente outra vez por favor (" + xhr.status + ")");
+                error: function () {
+                    $("#spinner").hide();
+                    utils.openDialog("Ora bolas", "O envio de mensagem falhou, veja se tem sinal de rede e tente outra vez por favor");
                 }
             });
-        });
-    }
-
-    //
-    // UTILS
-    //
-    function dialog(title, text) {
-        App.dialog({
-            title: title,
-            text: text,
-            okButton: 'Fechar'
-        });
-    }
-
-    App.load('home');
+        }
+    });
 </script>
 </body>
 

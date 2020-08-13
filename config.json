@@ -1,3 +1,10 @@
 {
-  "port": 8081
+  "port": 8081,
+  "static_dir": "static",
+  "aws_region": "eu-west-3",
+  "aws_access_key": "AKIAIH6VEL32OE2MCS7A",
+  "aws_secret_key": "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",
+  "aws_s3_bucket": "jupiter-moons",
+  "aws_dynamo_db_message_table_name": "Messages",
+  "db_data_dir": "db/data"
 }
